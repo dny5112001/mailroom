@@ -1,5 +1,8 @@
 # Mailroom
 
+[![CI](https://github.com/dny5112001/mailroom/actions/workflows/ci.yml/badge.svg)](https://github.com/dny5112001/mailroom/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 **A fast, single-binary SMTP server and web inbox for testing email.**
 
 Point your app's SMTP settings at Mailroom and every email it sends is caught — never delivered — and shown in a live web inbox. Built in Rust: one 7 MB binary, ~7 MB of memory at idle, no runtime dependencies.
@@ -18,7 +21,7 @@ Point your app's SMTP settings at Mailroom and every email it sends is caught �
 ## Quick start
 
 ```bash
-cargo install --git https://github.com/<your-account>/mailroom   # or download a release binary
+cargo install --git https://github.com/dny5112001/mailroom   # or download a release binary
 mailroom
 ```
 
@@ -39,14 +42,14 @@ python3 scripts/send-samples.py          # a set of realistic sample emails
 ### Docker
 
 ```bash
-docker run --rm -p 1025:1025 -p 8025:8025 ghcr.io/<your-account>/mailroom
+docker run --rm -p 1025:1025 -p 8025:8025 ghcr.io/dny5112001/mailroom
 ```
 
 ```yaml
 # docker-compose.yml
 services:
   mailroom:
-    image: ghcr.io/<your-account>/mailroom
+    image: ghcr.io/dny5112001/mailroom
     ports: ["1025:1025", "8025:8025"]
     environment:
       MAILROOM_DB: /data/mailroom.db   # optional: keep messages across restarts
