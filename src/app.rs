@@ -14,7 +14,7 @@ use crate::{
     },
     events::Event,
     smtp,
-    storage::{SearchQuery, Selection, Stats, Store, repo},
+    storage::{Recipient, SearchQuery, Selection, Stats, Store, repo},
 };
 
 #[derive(Debug, Clone)]
@@ -262,6 +262,13 @@ impl Mailroom {
 
     pub async fn stats(&self) -> Result<Stats> {
         self.inner.store.run(|conn| repo::stats(conn)).await
+    }
+
+    pub async fn recipients(&self, limit: usize) -> Result<Vec<Recipient>> {
+        self.inner
+            .store
+            .run(move |conn| repo::recipients(conn, limit))
+            .await
     }
 }
 

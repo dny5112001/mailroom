@@ -12,7 +12,7 @@ use anyhow::{Context, Result};
 use rusqlite::Connection;
 
 pub use query::SearchQuery;
-pub use repo::{Selection, Stats};
+pub use repo::{Recipient, Selection, Stats};
 
 /// A shared SQLite connection. Queries run on Tokio's blocking thread pool so
 /// they never stall the async runtime.

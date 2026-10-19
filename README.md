@@ -7,7 +7,10 @@
 
 Point your app's SMTP settings at Mailroom and every email it sends is caught — never delivered — and shown in a live web inbox. Built in Rust: one 7 MB binary, ~7 MB of memory at idle, no runtime dependencies.
 
-![Mailroom inbox](docs/screenshot.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshot-dark.png">
+  <img alt="The Mailroom inbox showing a captured password reset email" src="docs/screenshot.png">
+</picture>
 
 ## Why Mailroom
 
@@ -15,7 +18,7 @@ Point your app's SMTP settings at Mailroom and every email it sends is caught �
 - **Built for automated tests.** `GET /api/v1/messages/wait` blocks until a matching email arrives, and every message comes with its **links** and **one-time codes** already extracted — so "click the magic link" in a Playwright test is two lines.
 - **Faithful SMTP.** A hand-written, fully unit-tested ESMTP state machine: `PIPELINING`, `SIZE`, `8BITMIME`, `SMTPUTF8`, `CHUNKING`/`BDAT`, `ENHANCEDSTATUSCODES`, `AUTH PLAIN/LOGIN` and `STARTTLS` (bring a certificate or let Mailroom generate one).
 - **See what really happened.** The SMTP envelope is kept next to the message, so blind-copied recipients show up as *envelope-only Bcc*, and missing `Message-ID`/`Date` headers are flagged.
-- **A great inbox.** Live updates over SSE, sandboxed HTML preview at desktop/tablet/mobile widths, remote-content blocking, text/source/headers/links/attachments views, Gmail-style search, keyboard shortcuts, dark mode, desktop notifications.
+- **A focused inbox.** Views for unread mail and attachments, one-click filtering by recipient, live updates over SSE, sandboxed HTML preview at desktop/tablet/mobile widths, remote-content blocking, text/source/headers/links/attachments views, Gmail-style search, keyboard shortcuts, dark mode, desktop notifications.
 - **Drop-in `sendmail`.** `mailroom sendmail -t` captures PHP's `mail()`, cron and anything else that pipes to sendmail.
 
 ## Quick start
@@ -152,6 +155,7 @@ All endpoints live under `/api/v1`.
 | `GET` | `/messages/{id}/links` | Links found in the message |
 | `GET` | `/messages/{id}/codes` | Likely one-time / verification codes |
 | `POST` | `/send` | Create a message from JSON (`from`, `to`, `cc`, `bcc`, `subject`, `text`, `html`, `headers`, `attachments`) |
+| `GET` | `/recipients?limit=` | Addresses that received mail, with total and unread counts |
 | `GET` | `/events` | Server-sent events: `message.created`, `message.updated`, `message.deleted`, `messages.cleared`, `stats` |
 | `GET` | `/info` | Version, listen addresses, settings and mailbox stats |
 

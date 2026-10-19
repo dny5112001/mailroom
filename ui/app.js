@@ -2,6 +2,7 @@
 // whole UI ships inside the binary.
 
 const PAGE_SIZE = 100;
+const DOCS_URL = 'https://github.com/dny5112001/mailroom#testing-with-the-api';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -33,41 +34,35 @@ function html(strings, ...values) {
 }
 
 const ICONS = {
-  search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
-  trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
-  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
-  mailOpen: '<path d="M3 10v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-9l-9-6-9 6Z"/><path d="m3 10 9 6 9-6"/>',
-  checkAll: '<path d="m2 12 5 5L18 6M13 16l1 1 8-9"/>',
-  download: '<path d="M12 4v12M7 11l5 5 5-5M5 20h14"/>',
-  paperclip: '<path d="m21 11-8.5 8.5a5 5 0 0 1-7-7L14 4a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L15 7"/>',
-  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
-  moon: '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/>',
-  auto: '<circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor"/>',
-  monitor: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>',
-  tablet: '<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M11 18h2"/>',
-  phone: '<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>',
-  external: '<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
-  copy: '<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/>',
-  check: '<path d="m5 12 5 5 9-10"/>',
-  bell: '<path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/>',
-  bellOff: '<path d="M3 3l18 18M8.7 3.6A6 6 0 0 1 18 8c0 3 .5 5 1.2 6.2M17 17H3s3-1 3-8c0-.6.1-1.2.2-1.7M10 20a2 2 0 0 0 4 0"/>',
-  x: '<path d="M6 6l12 12M18 6 6 18"/>',
-  back: '<path d="m15 18-6-6 6-6"/>',
-  image: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>',
-  file: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5"/>',
-  lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
-  keyboard: '<rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/>',
-  link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
-  inbox: '<path d="M3 13h5l1.5 3h5l1.5-3h5"/><path d="M5.5 5h13L21 13v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5l2.5-8Z"/>',
-  eye: '<path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z"/><circle cx="12" cy="12" r="3"/>',
-  code: '<path d="m8 8-5 4 5 4M16 8l5 4-5 4M13.5 5l-3 14"/>',
-  list: '<path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/>',
-  text: '<path d="M4 6h16M4 10h11M4 14h16M4 18h9"/>',
-  send: '<path d="M21 3 10 14M21 3l-7 18-4-7-7-4 18-7Z"/>',
-  key: '<circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M14 9l2 2"/>',
-  route: '<circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H16a3.5 3.5 0 0 0 0-7H8a3.5 3.5 0 0 1 0-7h7.5"/>',
-  refresh: '<path d="M20 11a8 8 0 0 0-14.7-4.4L4 8M4 4v4h4M4 13a8 8 0 0 0 14.7 4.4L20 16M20 20v-4h-4"/>',
-  shield: '<path d="M12 3 5 6v6c0 4 3 7 7 9 4-2 7-5 7-9V6l-7-3Z"/>',
+  inbox: '<path d="M3.5 13.5h4.5l1.5 2.5h5l1.5-2.5h4.5"/><path d="M5.8 5.5h12.4l2.3 8v4.5a1.5 1.5 0 0 1-1.5 1.5h-14A1.5 1.5 0 0 1 3.5 18v-4.5l2.3-8Z"/>',
+  unread: '<path d="M20.5 11v6.5a1.5 1.5 0 0 1-1.5 1.5H5a1.5 1.5 0 0 1-1.5-1.5v-11A1.5 1.5 0 0 1 5 5h9"/><path d="m3.8 6.5 8.2 6 4-2.9"/><circle cx="19" cy="6" r="2.5" fill="currentColor" stroke="none"/>',
+  paperclip: '<path d="m20 11.5-7.8 7.8a4.6 4.6 0 0 1-6.5-6.5l7.9-7.9a3.1 3.1 0 0 1 4.4 4.4l-7.9 7.9a1.5 1.5 0 0 1-2.2-2.2l7.3-7.3"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4-4"/>',
+  trash: '<path d="M4.5 7h15M10 11v6M14 11v6M6.5 7l.8 11.2a1.5 1.5 0 0 0 1.5 1.3h6.4a1.5 1.5 0 0 0 1.5-1.3L17.5 7M9.5 7V4.5h5V7"/>',
+  mail: '<rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="m4 6.5 8 6 8-6"/>',
+  mailOpen: '<path d="M3.5 10v8.5A1.5 1.5 0 0 0 5 20h14a1.5 1.5 0 0 0 1.5-1.5V10L12 4.5 3.5 10Z"/><path d="m4 10.5 8 5.5 8-5.5"/>',
+  checkAll: '<path d="m2.5 12.5 4.5 4.5 9.5-10M12.5 16l1 1 8-9"/>',
+  download: '<path d="M12 4.5v11M7.5 11l4.5 4.5 4.5-4.5M5 19.5h14"/>',
+  sun: '<circle cx="12" cy="12" r="3.75"/><path d="M12 3v1.5M12 19.5V21M5.6 5.6l1.1 1.1M17.3 17.3l1.1 1.1M3 12h1.5M19.5 12H21M5.6 18.4l1.1-1.1M17.3 6.7l1.1-1.1"/>',
+  moon: '<path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10Z"/>',
+  auto: '<circle cx="12" cy="12" r="8"/><path d="M12 4v16a8 8 0 0 0 0-16Z" fill="currentColor" stroke="none"/>',
+  monitor: '<rect x="3.5" y="4.5" width="17" height="11.5" rx="1.5"/><path d="M8.5 20h7M12 16v4"/>',
+  tablet: '<rect x="5.5" y="3" width="13" height="18" rx="1.5"/><path d="M11 17.5h2"/>',
+  phone: '<rect x="7.5" y="3" width="9" height="18" rx="1.5"/><path d="M11 17.5h2"/>',
+  external: '<path d="M14 4.5h5.5V10M19.5 4.5 11 13M17.5 13.5v5a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1h5"/>',
+  copy: '<rect x="8.5" y="8.5" width="11" height="11" rx="1.5"/><path d="M15.5 8.5V5.5a1 1 0 0 0-1-1h-9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3"/>',
+  check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+  bell: '<path d="M6.5 9a5.5 5.5 0 0 1 11 0c0 6 2.5 7.5 2.5 7.5H4s2.5-1.5 2.5-7.5M10 19.5a2 2 0 0 0 4 0"/>',
+  bellOff: '<path d="m3.5 3.5 17 17M9 4.3A5.5 5.5 0 0 1 17.5 9c0 3 .6 4.9 1.3 6M16.5 16.5H4s2.5-1.5 2.5-7.5c0-.4 0-.8.1-1.2M10 19.5a2 2 0 0 0 4 0"/>',
+  x: '<path d="m6 6 12 12M18 6 6 18"/>',
+  back: '<path d="m14.5 18-6-6 6-6"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  file: '<path d="M13.5 3.5H7A1.5 1.5 0 0 0 5.5 5v14A1.5 1.5 0 0 0 7 20.5h10a1.5 1.5 0 0 0 1.5-1.5V8.5l-5-5Z"/><path d="M13.5 3.5v5h5"/>',
+  keyboard: '<rect x="2.5" y="6" width="19" height="12" rx="1.5"/><path d="M6.5 10h.01M10 10h.01M14 10h.01M17.5 10h.01M7.5 14h9"/>',
+  link: '<path d="M10 14a3.8 3.8 0 0 0 5.4 0l3-3A3.8 3.8 0 0 0 13 5.6l-1 1M14 10a3.8 3.8 0 0 0-5.4 0l-3 3a3.8 3.8 0 0 0 5.4 5.4l1-1"/>',
+  refresh: '<path d="M19.5 11A7.5 7.5 0 0 0 6 6.6L4.5 8M4.5 4v4h4M4.5 13A7.5 7.5 0 0 0 18 17.4l1.5-1.4M19.5 20v-4h-4"/>',
+  chevronUp: '<path d="m6 15 6-6 6 6"/>',
+  chevronDown: '<path d="m6 9 6 6 6-6"/>',
 };
 
 const icon = (name, cls = '') =>
@@ -124,47 +119,27 @@ function formatSize(bytes) {
 function relativeTime(iso) {
   const date = new Date(iso);
   const seconds = (Date.now() - date.getTime()) / 1000;
-  if (seconds < 45) return 'now';
+  if (seconds < 45) return 'Now';
   if (seconds < 3600) return `${Math.round(seconds / 60)}m`;
-  if (seconds < 86400) return `${Math.round(seconds / 3600)}h`;
   const now = new Date();
-  const sameYear = date.getFullYear() === now.getFullYear();
+  if (date.toDateString() === now.toDateString()) {
+    return date.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+  }
   if (seconds < 6 * 86400) return date.toLocaleDateString(undefined, { weekday: 'short' });
+  const sameYear = date.getFullYear() === now.getFullYear();
   return date.toLocaleDateString(undefined, sameYear ? { month: 'short', day: 'numeric' } : { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
 const fullDate = (iso) =>
-  new Date(iso).toLocaleString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
-function hue(text) {
-  let hash = 0;
-  for (const char of text) hash = (hash * 31 + char.codePointAt(0)) | 0;
-  return Math.abs(hash) % 360;
-}
-
-function initials(address) {
-  if (!address) return '?';
-  const source = address.name || address.address;
-  const words = source.replace(/[@._-]+/g, ' ').trim().split(/\s+/).filter(Boolean);
-  if (!words.length) return '?';
-  const letters = address.name && words.length > 1 ? words[0][0] + words[words.length - 1][0] : words[0][0];
-  return letters.toUpperCase();
-}
-
-function avatar(address) {
-  const key = address ? address.address.toLowerCase() : '';
-  return html`<div class="avatar" style="background: hsl(${hue(key)} 52% 52%)">${initials(address)}</div>`;
-}
+  new Date(iso).toLocaleString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', second: '2-digit' });
 
 const displayName = (address) => (address ? address.name || address.address : 'Unknown sender');
 
-function addressPills(list) {
-  return list.map(
-    (a) => html`<span class="addr-pill">${a.name ? html`${a.name} <span class="addr">&lt;${a.address}&gt;</span>` : a.address}</span>`,
-  );
+function addressList(list) {
+  return list.map((a, i) => html`${i ? html`<span class="sep">, </span>` : ''}${a.name ? html`${a.name} <span class="addr">&lt;${a.address}&gt;</span>` : a.address}`);
 }
 
-async function copy(text, label = 'Copied to clipboard') {
+async function copy(text, label = 'Copied') {
   try {
     await navigator.clipboard.writeText(text);
   } catch {
@@ -186,7 +161,7 @@ function toast(message, kind = 'info') {
   setTimeout(() => {
     element.classList.add('leaving');
     setTimeout(() => element.remove(), 220);
-  }, kind === 'error' ? 4500 : 2200);
+  }, kind === 'error' ? 4500 : 1800);
 }
 
 /** A small promise-based replacement for `confirm()`. */
@@ -228,6 +203,7 @@ const state = {
   messages: [],
   total: 0,
   unread: 0,
+  withAttachments: 0,
   matched: 0,
   query: '',
   loading: false,
@@ -236,6 +212,7 @@ const state = {
   detail: null,
   source: null,
   selection: new Set(),
+  recipients: [],
   info: null,
   connected: false,
   fresh: new Map(), // id -> arrival time, for the highlight animation
@@ -251,6 +228,12 @@ const appEl = $('#app');
 const listEl = $('#list');
 const detailEl = $('#detail');
 const searchInput = $('#search-input');
+
+const VIEWS = [
+  { id: 'inbox', label: 'Inbox', icon: 'inbox', query: '', count: () => state.total },
+  { id: 'unread', label: 'Unread', icon: 'unread', query: 'is:unread', count: () => state.unread, strong: true },
+  { id: 'attachments', label: 'Attachments', icon: 'paperclip', query: 'has:attachment', count: () => state.withAttachments },
+];
 
 // ---------------------------------------------------------------------------
 // Data loading
@@ -279,8 +262,36 @@ async function loadMessages({ append = false } = {}) {
     if (requestId === listRequest) state.loading = false;
   }
   renderList();
-  renderCounts();
+  renderNav();
   if (!state.selectedId) renderDetail();
+}
+
+async function loadRecipients() {
+  try {
+    state.recipients = await request('GET', 'recipients?limit=50');
+  } catch {
+    state.recipients = [];
+  }
+  renderRecipients();
+}
+
+const refreshRecipients = debounce(loadRecipients, 300);
+
+async function loadStats() {
+  try {
+    const info = await request('GET', 'info');
+    state.info = info;
+    applyStats(info.stats);
+  } catch { /* offline; SSE will retry */ }
+  renderStatus();
+}
+
+function applyStats(stats) {
+  state.total = stats.total;
+  state.unread = stats.unread;
+  state.withAttachments = stats.with_attachments;
+  renderNav();
+  renderCounts();
 }
 
 async function openMessage(id, { updateHash = true } = {}) {
@@ -290,7 +301,7 @@ async function openMessage(id, { updateHash = true } = {}) {
   appEl.classList.add('show-detail');
   renderListSelection();
   if (!state.detail || state.detail.id !== id) {
-    detailEl.innerHTML = '<div class="skeleton"><div style="width:55%;height:20px"></div><div style="width:35%"></div><div style="width:45%"></div></div>';
+    detailEl.innerHTML = '<div class="skeleton" style="padding-top:72px"><div style="width:48%;height:16px"></div><div style="width:32%"></div><div style="width:38%"></div></div>';
   }
   try {
     const detail = await request('GET', `messages/${encodeURIComponent(id)}`);
@@ -301,7 +312,7 @@ async function openMessage(id, { updateHash = true } = {}) {
   } catch (error) {
     if (state.selectedId !== id) return;
     state.detail = null;
-    detailEl.innerHTML = toHtml(placeholder('alert', 'Message unavailable', error.message));
+    detailEl.innerHTML = toHtml(emptyState('Message unavailable', error.message));
   }
 }
 
@@ -366,7 +377,6 @@ function removeMessages(ids) {
     if (location.hash) history.replaceState(null, '', location.pathname + location.search);
   }
   renderList();
-  renderCounts();
   if (!state.selectedId) renderDetail();
 }
 
@@ -382,18 +392,18 @@ async function bulkDelete() {
   if (state.query) {
     if (!state.matched) return;
     const ok = await confirmDialog({
-      title: `Delete ${state.matched} matching message${state.matched > 1 ? 's' : ''}?`,
-      message: html`Every message matching “${state.query}” will be removed.`,
+      title: `Delete ${state.matched} message${state.matched > 1 ? 's' : ''}?`,
+      message: html`Every message matching <code>${state.query}</code> will be deleted. This cannot be undone.`,
     });
     if (!ok) return;
     await request('DELETE', `messages?query=${encodeURIComponent(state.query)}`);
-    toast('Matching messages deleted', 'success');
+    toast('Messages deleted', 'success');
     loadMessages();
     return;
   }
   const ok = await confirmDialog({
     title: 'Delete all messages?',
-    message: `All ${state.total} message${state.total > 1 ? 's' : ''} in the mailbox will be removed.`,
+    message: `All ${state.total} message${state.total > 1 ? 's' : ''} will be deleted. This cannot be undone.`,
     confirm: 'Delete all',
   });
   if (!ok) return;
@@ -436,6 +446,7 @@ function onCreated(summary) {
     renderList();
     if (!state.selectedId) renderDetail();
   }
+  refreshRecipients();
   if (state.notify && document.hidden) {
     try {
       const notification = new Notification(summary.subject || '(no subject)', {
@@ -453,10 +464,13 @@ function onCleared() {
   state.selection.clear();
   state.total = 0;
   state.unread = 0;
+  state.withAttachments = 0;
   state.matched = 0;
+  state.recipients = [];
   closeMessage();
   renderList();
-  renderCounts();
+  renderNav();
+  renderRecipients();
 }
 
 function connectEvents() {
@@ -464,7 +478,10 @@ function connectEvents() {
   let disconnected = false;
   source.onopen = () => {
     setConnected(true);
-    if (disconnected) loadMessages();
+    if (disconnected) {
+      loadMessages();
+      loadRecipients();
+    }
     disconnected = false;
   };
   source.onerror = () => {
@@ -477,24 +494,85 @@ function connectEvents() {
     applyRead(ids, read);
     renderList();
     if (state.detail && ids.includes(state.detail.id)) renderDetailActions();
+    refreshRecipients();
   });
-  source.addEventListener('message.deleted', (e) => removeMessages(JSON.parse(e.data).ids));
+  source.addEventListener('message.deleted', (e) => {
+    removeMessages(JSON.parse(e.data).ids);
+    refreshRecipients();
+  });
   source.addEventListener('messages.cleared', () => onCleared());
-  source.addEventListener('stats', (e) => {
-    const stats = JSON.parse(e.data);
-    state.total = stats.total;
-    state.unread = stats.unread;
-    renderCounts();
-  });
-  source.addEventListener('resync', () => loadMessages());
+  source.addEventListener('stats', (e) => applyStats(JSON.parse(e.data)));
+  source.addEventListener('resync', () => { loadMessages(); loadRecipients(); });
 }
 
 function setConnected(connected) {
   state.connected = connected;
-  const live = $('#live');
-  live.classList.toggle('connected', connected);
-  live.title = connected ? 'Receiving new messages in real time' : 'Disconnected — reconnecting…';
-  $('.live-label', live).textContent = connected ? 'Live' : 'Reconnecting';
+  renderStatus();
+}
+
+// ---------------------------------------------------------------------------
+// Rendering: sidebar
+// ---------------------------------------------------------------------------
+
+function activeView() {
+  return VIEWS.find((v) => v.query === state.query)?.id ?? null;
+}
+
+function renderNav() {
+  const current = activeView();
+  $('#nav').innerHTML = toHtml(VIEWS.map((view) => {
+    const count = view.count();
+    return html`
+      <button class="nav-item ${view.id === current ? 'active' : ''}" data-view="${view.id}">
+        ${icon(view.icon)}<span class="nav-label">${view.label}</span>
+        ${count ? html`<span class="nav-count ${view.strong ? 'strong' : ''}">${count.toLocaleString()}</span>` : ''}
+      </button>`;
+  }));
+  renderCounts();
+}
+
+function renderRecipients() {
+  const container = $('#recipients');
+  if (!state.recipients.length) {
+    container.innerHTML = '<div class="nav-empty">Addresses that receive mail appear here.</div>';
+    return;
+  }
+  container.innerHTML = toHtml(state.recipients.map((r) => {
+    const active = state.query === `to:${r.address}`;
+    return html`
+      <button class="nav-item ${active ? 'active' : ''}" data-recipient="${r.address}" title="${r.address}">
+        <span class="nav-label">${r.address}</span>
+        <span class="nav-count ${r.unread ? 'strong' : ''}">${(r.unread || r.total).toLocaleString()}</span>
+      </button>`;
+  }));
+}
+
+function smtpEndpoint() {
+  const smtp = state.info?.smtp_addr || '127.0.0.1:1025';
+  const port = smtp.slice(smtp.lastIndexOf(':') + 1);
+  let host = smtp.slice(0, smtp.lastIndexOf(':')).replace(/^\[|\]$/g, '');
+  if (['0.0.0.0', '::', '127.0.0.1', '::1'].includes(host)) host = 'localhost';
+  return { host, port };
+}
+
+function renderStatus() {
+  const { host, port } = smtpEndpoint();
+  const status = $('#status');
+  status.classList.toggle('connected', state.connected);
+  status.title = state.connected ? 'Receiving new messages in real time' : 'Lost connection to Mailroom; retrying';
+  status.innerHTML = toHtml(html`
+    <span class="status-dot"></span>
+    <span><strong>${state.connected ? 'Listening' : 'Reconnecting…'}</strong>SMTP <code>${host}:${port}</code></span>`);
+}
+
+function setView(query) {
+  searchInput.value = query;
+  $('#search').classList.toggle('has-value', Boolean(query));
+  state.query = query;
+  appEl.classList.remove('nav-open');
+  if (window.innerWidth <= 800 && state.selectedId) closeMessage();
+  loadMessages();
+  renderRecipients();
 }
 
 // ---------------------------------------------------------------------------
@@ -503,24 +581,26 @@ function setConnected(connected) {
 
 function renderCounts() {
   document.title = state.unread ? `(${state.unread}) Mailroom` : 'Mailroom';
+  const toolbar = $('#list-toolbar');
+  if (!toolbar) return;
   const selected = state.selection.size;
-  const label = selected
-    ? html`<strong>${selected}</strong> selected`
-    : state.query
-      ? html`<strong>${state.matched}</strong> of ${state.total} match`
-      : html`<strong>${state.total}</strong> message${state.total === 1 ? '' : 's'}${state.unread ? html` · ${state.unread} unread` : ''}`;
+  const view = VIEWS.find((v) => v.query === state.query);
+  const recipient = state.query.startsWith('to:') && !state.query.includes(' ') ? state.query.slice(3) : null;
+  let label;
+  if (selected) label = html`<strong>${selected}</strong> selected`;
+  else if (!state.query || view) label = html`<strong>${state.matched.toLocaleString()}</strong> ${state.matched === 1 ? 'message' : 'messages'}`;
+  else if (recipient) label = html`<strong>${state.matched.toLocaleString()}</strong> to <span class="filter">${recipient}</span>`;
+  else label = html`<strong>${state.matched.toLocaleString()}</strong> of ${state.total.toLocaleString()} match`;
 
   const allChecked = state.messages.length > 0 && state.messages.every((m) => state.selection.has(m.id));
   const someChecked = selected > 0 && !allChecked;
-  const deleteTitle = selected ? 'Delete selected' : state.query ? 'Delete matching messages' : 'Delete all messages';
-  const readTitle = selected ? 'Toggle read for selected' : state.query ? 'Mark matching as read' : 'Mark all as read';
-
-  $('#list-toolbar').innerHTML = toHtml(html`
+  const scope = selected ? 'selected' : state.query ? 'matching' : 'all';
+  toolbar.innerHTML = toHtml(html`
     <input type="checkbox" class="check" id="select-all" aria-label="Select all" ${allChecked ? 'checked' : ''} ${state.messages.length ? '' : 'disabled'}>
     <span class="count">${label}</span>
-    <button class="icon-btn" data-action="refresh" title="Refresh">${icon('refresh')}</button>
-    <button class="icon-btn" data-action="bulk-read" title="${readTitle}" ${state.total ? '' : 'disabled'}>${icon('checkAll')}</button>
-    <button class="icon-btn danger" data-action="bulk-delete" title="${deleteTitle}" ${state.total ? '' : 'disabled'}>${icon('trash')}</button>`);
+    <button class="icon-btn" data-action="refresh" title="Refresh (r)">${icon('refresh')}</button>
+    <button class="icon-btn" data-action="bulk-read" title="Mark ${scope} as read" ${state.matched ? '' : 'disabled'}>${icon('checkAll')}</button>
+    <button class="icon-btn danger" data-action="bulk-delete" title="Delete ${scope}" ${state.matched ? '' : 'disabled'}>${icon('trash')}</button>`);
   $('#select-all').indeterminate = someChecked;
   listEl.classList.toggle('selecting', selected > 0);
 }
@@ -535,26 +615,21 @@ function rowHtml(message) {
   if (freshSince !== undefined) classes.push('fresh');
   const recipients = [...message.to, ...message.cc];
   const first = recipients[0] || message.bcc[0];
-  const more = recipients.length + (recipients.length ? 0 : message.bcc.length) - 1;
-  const to = first ? `${first.address}${more > 0 ? ` +${more}` : ''}` : '';
+  const extra = (recipients.length || message.bcc.length) - 1;
   return html`
     <div class="${classes.join(' ')}" style="${freshStyle}" data-id="${message.id}" role="option" aria-selected="${message.id === state.selectedId}">
-      ${message.read ? '' : raw('<span class="unread-dot" aria-label="Unread"></span>')}
-      <div class="row-lead">
-        ${avatar(message.from)}
+      <div class="row-gutter">
+        ${message.read ? '' : raw('<span class="row-dot" aria-label="Unread"></span>')}
         <input type="checkbox" class="check" data-select="${message.id}" aria-label="Select message" ${state.selection.has(message.id) ? 'checked' : ''}>
       </div>
-      <div class="row-body">
-        <div class="row-line">
+      <div class="row-main">
+        <div class="row-top">
           <span class="row-from">${displayName(message.from)}</span>
+          ${message.attachment_count ? html`<span class="row-icons" title="${message.attachment_count} attachment${message.attachment_count > 1 ? 's' : ''}">${icon('paperclip')}</span>` : ''}
           <time class="row-time" datetime="${message.received_at}" title="${fullDate(message.received_at)}">${relativeTime(message.received_at)}</time>
         </div>
         <div class="row-subject">${message.subject || '(no subject)'}</div>
-        <div class="row-meta">
-          ${to ? html`<span class="to" title="${recipients.map((a) => a.address).join(', ')}">→ ${to}</span>` : ''}
-          ${message.attachment_count ? html`<span title="${message.attachment_count} attachment${message.attachment_count > 1 ? 's' : ''}">${icon('paperclip')}</span>` : ''}
-          <span class="snippet">${message.snippet}</span>
-        </div>
+        <div class="row-snippet">${first ? html`<span class="row-to">${first.address}${extra > 0 ? ` +${extra}` : ''}</span> — ` : ''}${message.snippet || 'No text content'}</div>
       </div>
     </div>`;
 }
@@ -566,13 +641,13 @@ function renderList() {
   }
   if (!state.messages.length) {
     listEl.innerHTML = toHtml(state.query
-      ? html`<div class="list-empty">${icon('search')}<div>No messages match <strong>${state.query}</strong></div><p>Try fewer or different terms.</p><button class="btn small" data-action="clear-search">Clear search</button></div>`
-      : html`<div class="list-empty">${icon('inbox')}<div>No messages yet</div><p>New mail appears here instantly.</p></div>`);
+      ? html`<div class="list-empty"><strong>No results</strong><p>Nothing matches <code>${state.query}</code>.</p><button class="btn small" data-action="clear-search">Clear search</button></div>`
+      : html`<div class="list-empty"><strong>No messages</strong><p>New mail appears here as soon as it arrives.</p></div>`);
     renderCounts();
     return;
   }
   const more = state.messages.length < state.matched
-    ? html`<div class="list-more" id="list-more">${state.loading ? 'Loading…' : `Showing ${state.messages.length} of ${state.matched}`}</div>`
+    ? html`<div class="list-more">${state.loading ? 'Loading…' : `Showing ${state.messages.length.toLocaleString()} of ${state.matched.toLocaleString()}`}</div>`
     : '';
   listEl.innerHTML = toHtml(html`${state.messages.map(rowHtml)}${more}`);
   renderCounts();
@@ -584,8 +659,7 @@ function renderListSelection() {
     row.classList.toggle('selected', selected);
     row.setAttribute('aria-selected', selected);
   }
-  const current = listEl.querySelector('.row.selected');
-  if (current) current.scrollIntoView({ block: 'nearest' });
+  listEl.querySelector('.row.selected')?.scrollIntoView({ block: 'nearest' });
 }
 
 function updateTimes() {
@@ -593,11 +667,11 @@ function updateTimes() {
 }
 
 // ---------------------------------------------------------------------------
-// Rendering: detail
+// Rendering: message
 // ---------------------------------------------------------------------------
 
-function placeholder(iconName, title, text, extra = '') {
-  return html`<div class="placeholder"><div><div class="big-icon">${icon(iconName in ICONS ? iconName : 'mail')}</div><h2>${title}</h2><p>${text}</p>${extra}</div></div>`;
+function emptyState(title, text, extra = '') {
+  return html`<div class="empty"><div><strong>${title}</strong><div>${text}</div>${extra}</div></div>`;
 }
 
 function renderDetail() {
@@ -610,22 +684,22 @@ function renderDetail() {
     renderOnboarding();
     return;
   }
-  detailEl.innerHTML = toHtml(placeholder('mail', 'No message selected', 'Pick a message from the list to inspect it.', html`
+  detailEl.innerHTML = toHtml(emptyState('No message selected', 'Choose a message to inspect it.', html`
     <div class="keys">
-      <span><kbd>j</kbd><kbd>k</kbd> navigate</span>
-      <span><kbd>/</kbd> search</span>
-      <span><kbd>?</kbd> all shortcuts</span>
+      <span><kbd>J</kbd><kbd>K</kbd> Navigate</span>
+      <span><kbd>/</kbd> Search</span>
+      <span><kbd>?</kbd> Shortcuts</span>
     </div>`));
 }
 
 const TABS = [
-  { id: 'preview', label: 'HTML', icon: 'eye', key: '1' },
-  { id: 'text', label: 'Text', icon: 'text', key: '2' },
-  { id: 'links', label: 'Links', icon: 'link', key: '3' },
-  { id: 'attachments', label: 'Attachments', icon: 'paperclip', key: '4' },
-  { id: 'headers', label: 'Headers', icon: 'list', key: '5' },
-  { id: 'source', label: 'Source', icon: 'code', key: '6' },
-  { id: 'delivery', label: 'Delivery', icon: 'route', key: '7' },
+  { id: 'preview', label: 'Preview', key: '1' },
+  { id: 'text', label: 'Plain text', key: '2' },
+  { id: 'links', label: 'Links', key: '3' },
+  { id: 'attachments', label: 'Attachments', key: '4' },
+  { id: 'headers', label: 'Headers', key: '5' },
+  { id: 'source', label: 'Source', key: '6' },
+  { id: 'delivery', label: 'Delivery', key: '7' },
 ];
 
 function tabAvailable(tab, detail) {
@@ -640,9 +714,9 @@ function currentTab(detail) {
   return ['preview', 'text', 'source'].find((t) => tabAvailable(t, detail));
 }
 
-function tabBadge(tab, detail) {
-  if (tab === 'links' && detail.links.length) return detail.links.length;
-  if (tab === 'attachments' && detail.attachments.length + detail.inline.length) return detail.attachments.length + detail.inline.length;
+function tabCount(tab, detail) {
+  if (tab === 'links') return detail.links.length || null;
+  if (tab === 'attachments') return detail.attachments.length + detail.inline.length || null;
   if (tab === 'headers') return detail.headers.length;
   return null;
 }
@@ -650,45 +724,38 @@ function tabBadge(tab, detail) {
 function renderMessage() {
   const d = state.detail;
   const tab = currentTab(d);
-  const rows = [
-    ['To', d.to],
-    ['Cc', d.cc],
-    ['Bcc', d.bcc],
-    ['Reply-To', d.reply_to],
-  ].filter(([, list]) => list.length);
   const headerBcc = new Set(d.headers.filter((h) => h.name.toLowerCase() === 'bcc').flatMap((h) => h.value.toLowerCase().match(/[^\s<>,;"]+@[^\s<>,;"]+/g) || []));
-  const envelopeOnly = d.bcc.filter((a) => !headerBcc.has(a.address.toLowerCase()));
+  const envelopeOnly = d.bcc.some((a) => !headerBcc.has(a.address.toLowerCase()));
+  const rows = [
+    ['From', d.from ? addressList([d.from]) : html`<span class="addr">No From header</span>`],
+    ['To', d.to.length ? addressList(d.to) : html`<span class="addr">No To header</span>`],
+  ];
+  if (d.cc.length) rows.push(['Cc', addressList(d.cc)]);
+  if (d.bcc.length) rows.push(['Bcc', html`${addressList(d.bcc)}${envelopeOnly ? html`<span class="note" title="Delivered through the SMTP envelope without appearing in any header">envelope only</span>` : ''}`]);
+  if (d.reply_to.length) rows.push(['Reply-To', addressList(d.reply_to)]);
+  rows.push(['Date', html`<span title="Received ${fullDate(d.received_at)}">${fullDate(d.date || d.received_at)}</span>`]);
+  if (d.codes.length) {
+    rows.push([d.codes.length > 1 ? 'Codes' : 'Code', d.codes.map((code) => html`<span class="code-value">${code}<button class="link-copy" data-copy="${code}">Copy</button></span>`)]);
+  }
 
   detailEl.innerHTML = toHtml(html`
-    <div class="detail-head">
-      <div class="detail-top">
-        <button class="icon-btn back-btn" data-action="back" title="Back to list">${icon('back')}</button>
-        <h1 class="subject ${d.subject ? '' : 'none'}">${d.subject || '(no subject)'}</h1>
-        <div class="detail-actions" id="detail-actions"></div>
-      </div>
-      <div class="sender">
-        ${avatar(d.from)}
-        <div class="sender-text">
-          <div class="sender-name">${d.from ? html`${d.from.name || d.from.address}${d.from.name ? html`<span class="addr">&lt;${d.from.address}&gt;</span>` : ''}` : html`<span class="addr">No From header</span>`}</div>
-        </div>
-        <time class="sender-date" title="Received ${fullDate(d.received_at)}">${fullDate(d.date || d.received_at)}</time>
-      </div>
-      ${rows.length ? html`<dl class="recipients">${rows.map(([label, list]) => html`
-        <dt>${label}</dt>
-        <dd>${addressPills(list)}${label === 'Bcc' && envelopeOnly.length ? html`<span class="chip-note" title="These recipients were in the SMTP envelope but not in any header">envelope only</span>` : ''}</dd>`)}
-      </dl>` : ''}
-      ${d.codes.length ? html`
-        <div class="codes">
-          <span class="codes-label">${icon('key')} Verification code</span>
-          ${d.codes.map((code) => html`<button class="code-chip" data-copy="${code}" title="Copy code">${code}${icon('copy')}</button>`)}
-        </div>` : ''}
-      <nav class="tabs" role="tablist">
-        ${TABS.map((t) => {
-          const badge = tabBadge(t.id, d);
-          return html`<button class="tab ${t.id === tab ? 'active' : ''}" role="tab" data-tab="${t.id}" aria-selected="${t.id === tab}" ${tabAvailable(t.id, d) ? '' : raw('disabled title="Not in this message"')}>${t.label}${badge ? html`<span class="badge">${badge}</span>` : ''}</button>`;
-        })}
-      </nav>
+    <div class="detail-toolbar">
+      <button class="icon-btn back-btn" data-action="back" title="Back">${icon('back')}</button>
+      <button class="icon-btn" data-action="prev" title="Previous message (k)">${icon('chevronUp')}</button>
+      <button class="icon-btn" data-action="next" title="Next message (j)">${icon('chevronDown')}</button>
+      <span class="spacer"></span>
+      <span id="detail-actions" style="display:contents"></span>
     </div>
+    <header class="msg-head">
+      <h1 class="subject ${d.subject ? '' : 'none'}">${d.subject || '(no subject)'}</h1>
+      <dl class="meta">${rows.map(([label, value]) => html`<dt>${label}</dt><dd>${value}</dd>`)}</dl>
+    </header>
+    <nav class="tabs" role="tablist">
+      ${TABS.map((t) => {
+        const count = tabCount(t.id, d);
+        return html`<button class="tab ${t.id === tab ? 'active' : ''}" role="tab" data-tab="${t.id}" aria-selected="${t.id === tab}" ${tabAvailable(t.id, d) ? '' : raw('disabled title="Not in this message"')}>${t.label}${count ? html`<span class="count">${count}</span>` : ''}</button>`;
+      })}
+    </nav>
     <div class="tab-body" id="tab-body"></div>`);
   renderDetailActions();
   detailEl.querySelector('.tab.active')?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -700,8 +767,9 @@ function renderDetailActions() {
   const actions = $('#detail-actions');
   if (!d || !actions) return;
   actions.innerHTML = toHtml(html`
-    <button class="icon-btn" data-action="toggle-read" title="${d.read ? 'Mark as unread' : 'Mark as read'} (u)">${icon(d.read ? 'mail' : 'mailOpen')}</button>
+    <button class="icon-btn" data-action="toggle-read" title="${d.read ? 'Mark as unread' : 'Mark as read'} (u)">${icon(d.read ? 'unread' : 'mailOpen')}</button>
     <a class="icon-btn" href="api/v1/messages/${d.id}/raw?download=1" title="Download .eml">${icon('download')}</a>
+    <span class="divider"></span>
     <button class="icon-btn danger" data-action="delete" title="Delete (Del)">${icon('trash')}</button>`);
 }
 
@@ -726,7 +794,7 @@ function renderTab(tab) {
   switch (tab) {
     case 'preview': return renderPreview(body, d);
     case 'text':
-      body.innerHTML = toHtml(html`<pre class="text-body">${linkify(d.text)}</pre>`);
+      body.innerHTML = toHtml(html`<pre class="plain">${linkify(d.text)}</pre>`);
       return;
     case 'links': return renderLinks(body, d);
     case 'attachments': return renderAttachments(body, d);
@@ -751,71 +819,69 @@ function previewUrl(d) {
 function renderPreview(body, d) {
   const device = DEVICES.find((x) => x.id === state.device) || DEVICES[0];
   body.innerHTML = toHtml(html`
-    <div class="preview-toolbar">
+    <div class="subbar">
       <div class="seg" role="group" aria-label="Preview width">
-        ${DEVICES.map((x) => html`<button class="${x.id === device.id ? 'active' : ''}" data-device="${x.id}" title="${x.label}${x.width ? ` (${x.width}px)` : ''}">${icon(x.icon)}<span>${x.label}</span></button>`)}
+        ${DEVICES.map((x) => html`<button class="${x.id === device.id ? 'active' : ''}" data-device="${x.id}" title="${x.label}${x.width ? ` · ${x.width}px` : ''}">${icon(x.icon)}${x.label}</button>`)}
       </div>
       ${device.width ? html`<span class="width-label">${device.width}px</span>` : ''}
       <span class="spacer"></span>
-      <label class="toggle" title="Block remote images, fonts and stylesheets (tracking pixels)">
+      <label class="toggle" title="Block remote images, fonts and stylesheets, such as tracking pixels">
         <input type="checkbox" id="block-remote" ${state.blockRemote ? 'checked' : ''}><span class="track"></span>Block remote content
       </label>
-      <a class="icon-btn" href="${previewUrl(d)}" target="_blank" rel="noopener" title="Open HTML in a new tab">${icon('external')}</a>
+      <a class="icon-btn" href="${previewUrl(d)}" target="_blank" rel="noopener" title="Open in new tab">${icon('external')}</a>
     </div>
-    <div class="preview-stage ${device.id}">
-      <iframe class="preview-frame" title="HTML preview" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin" referrerpolicy="no-referrer" src="${previewUrl(d)}"></iframe>
+    <div class="stage ${device.id}">
+      <iframe class="frame" title="HTML preview" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin" referrerpolicy="no-referrer" src="${previewUrl(d)}"></iframe>
     </div>`);
 }
 
 function renderLinks(body, d) {
   if (!d.links.length) {
-    body.innerHTML = toHtml(placeholder('link', 'No links', 'This message does not contain any links.'));
+    body.innerHTML = toHtml(emptyState('No links', 'This message does not contain any links.'));
     return;
   }
   body.innerHTML = toHtml(html`
-    <div class="tab-pad">
-      <h3 class="section-title">${d.links.length} link${d.links.length > 1 ? 's' : ''}</h3>
-      <ul class="link-list">
+    <div class="pad">
+      <ul class="items">
         ${d.links.map((link) => html`
-          <li class="link-item">
-            <span class="icon-wrap">${icon(link.url.startsWith('mailto:') ? 'mail' : 'link')}</span>
-            <div class="link-text">
-              <div class="link-label ${link.text ? '' : 'none'}">${link.text || 'No link text'}</div>
-              <div class="link-url" title="${link.url}">${link.url}</div>
+          <li class="item">
+            <div class="item-icon">${icon(link.url.startsWith('mailto:') ? 'mail' : 'link')}</div>
+            <div class="item-text">
+              <div class="item-title ${link.text ? '' : 'none'}">${link.text || 'Untitled link'}</div>
+              <div class="item-sub url" title="${link.url}">${link.url}</div>
             </div>
-            <div class="link-actions">
+            <div class="item-actions">
               <button class="icon-btn" data-copy="${link.url}" title="Copy URL">${icon('copy')}</button>
-              <a class="icon-btn" href="${link.url}" target="_blank" rel="noopener noreferrer" title="Open link">${icon('external')}</a>
+              <a class="icon-btn" href="${link.url}" target="_blank" rel="noopener noreferrer" title="Open">${icon('external')}</a>
             </div>
           </li>`)}
       </ul>
     </div>`);
 }
 
-function fileCard(part) {
+function fileItem(part) {
   const isImage = part.content_type.startsWith('image/');
   const name = part.filename || (part.content_id ? `cid:${part.content_id}` : `part-${part.part_id}`);
-  const ext = (part.filename || '').split('.').pop();
+  const ext = part.filename && part.filename.includes('.') ? part.filename.split('.').pop().slice(0, 4) : '';
   return html`
-    <a class="file" href="${part.url}?download=1" title="Download ${name}">
-      <div class="file-thumb">
-        ${isImage ? html`<img src="${part.url}" alt="" loading="lazy">` : html`<div>${icon('file')}${ext && ext !== part.filename ? html`<div class="ext">${ext}</div>` : ''}</div>`}
+    <li class="item">
+      <div class="item-icon">${isImage ? html`<img src="${part.url}" alt="" loading="lazy">` : ext || icon('file')}</div>
+      <div class="item-text">
+        <div class="item-title">${name}</div>
+        <div class="item-sub">${formatSize(part.size)} · ${part.content_type}</div>
       </div>
-      <div class="file-info">
-        <div>
-          <div class="file-name">${name}</div>
-          <div class="file-meta">${formatSize(part.size)} · ${part.content_type}</div>
-        </div>
-        ${icon('download')}
+      <div class="item-actions">
+        <a class="icon-btn" href="${part.url}" target="_blank" rel="noopener" title="Open">${icon('external')}</a>
+        <a class="icon-btn" href="${part.url}?download=1" title="Download">${icon('download')}</a>
       </div>
-    </a>`;
+    </li>`;
 }
 
 function renderAttachments(body, d) {
   body.innerHTML = toHtml(html`
-    <div class="tab-pad">
-      ${d.attachments.length ? html`<h3 class="section-title">Attachments</h3><div class="files">${d.attachments.map(fileCard)}</div>` : ''}
-      ${d.inline.length ? html`<h3 class="section-title">Inline (referenced by the HTML)</h3><div class="files">${d.inline.map(fileCard)}</div>` : ''}
+    <div class="pad">
+      ${d.attachments.length ? html`<section class="section"><h3 class="section-title">Attachments<span class="count">${d.attachments.length}</span></h3><ul class="items">${d.attachments.map(fileItem)}</ul></section>` : ''}
+      ${d.inline.length ? html`<section class="section"><h3 class="section-title">Inline images<span class="count">${d.inline.length}</span></h3><ul class="items">${d.inline.map(fileItem)}</ul></section>` : ''}
     </div>`);
 }
 
@@ -824,9 +890,9 @@ function renderHeaders(body, d) {
     .filter((h) => !filter || h.name.toLowerCase().includes(filter) || h.value.toLowerCase().includes(filter))
     .map((h) => html`<tr><th>${h.name}</th><td>${h.value}</td></tr>`);
   body.innerHTML = toHtml(html`
-    <div class="tab-pad">
+    <div class="pad">
       <input class="filter-input" id="header-filter" type="search" placeholder="Filter headers" autocomplete="off">
-      <table class="kv"><tbody id="header-rows">${rows('')}</tbody></table>
+      <table class="table"><tbody id="header-rows">${rows('')}</tbody></table>
     </div>`);
   $('#header-filter').addEventListener('input', (e) => {
     $('#header-rows').innerHTML = toHtml(rows(e.target.value.trim().toLowerCase()));
@@ -842,7 +908,7 @@ async function renderSource(body, d) {
       const text = await request('GET', `messages/${encodeURIComponent(d.id)}/raw`);
       state.source = { id: d.id, text };
     } catch (error) {
-      body.innerHTML = toHtml(placeholder('code', 'Could not load source', error.message));
+      body.innerHTML = toHtml(emptyState('Could not load source', error.message));
       return;
     }
     if (state.detail?.id !== d.id || currentTab(state.detail) !== 'source') return;
@@ -856,44 +922,48 @@ async function renderSource(body, d) {
     .split(/(\r?\n)/)
     .map((line) => {
       const match = /^([!-9;-~]+)(:)(.*)$/s.exec(line);
-      return match ? `<span class="h-name">${escape(match[1])}</span><span class="h-sep">:</span>${escape(match[3])}` : escape(line);
+      return match
+        ? `<span class="h-name">${escape(match[1])}</span><span class="h-sep">:</span><span class="h-value">${escape(match[3])}</span>`
+        : `<span class="h-value">${escape(line)}</span>`;
     })
     .join('');
   body.innerHTML = toHtml(html`
-    <div class="source-toolbar">
+    <div class="subbar">
       <span class="note">${formatSize(d.size)}${full.length > SOURCE_LIMIT ? ' · showing the first 2 MB' : ''}</span>
-      <button class="btn small" data-action="copy-source">${icon('copy')} Copy</button>
-      <a class="btn small" href="api/v1/messages/${d.id}/raw?download=1">${icon('download')} Download .eml</a>
+      <span class="spacer"></span>
+      <button class="btn small" data-action="copy-source">${icon('copy')}Copy</button>
+      <a class="btn small" href="api/v1/messages/${d.id}/raw?download=1">${icon('download')}Download .eml</a>
     </div>
-    <pre class="source">${raw(highlighted)}${rest}</pre>`);
+    <pre class="plain">${raw(highlighted)}<span class="h-body">${rest}</span></pre>`);
 }
 
 function renderDelivery(body, d) {
   const e = d.envelope;
-  const yes = (on, label) => on
-    ? html`<span class="badge-ok">${icon('lock')} ${label}</span>`
-    : html`<span class="badge-no">${label}</span>`;
-  const rows = [
-    ['Received', fullDate(d.received_at)],
-    ['Source', e.source === 'api' ? 'HTTP API (POST /api/v1/send)' : 'SMTP'],
-    ['MAIL FROM', e.mail_from ? e.mail_from : html`<span class="muted">&lt;&gt; (null sender)</span>`],
-    ['RCPT TO', e.rcpt_to.length ? e.rcpt_to.join(', ') : html`<span class="muted">none</span>`],
+  const muted = (text) => html`<span class="muted">${text}</span>`;
+  const missing = (header) => html`<span class="warn" title="Most providers add or require this header; mail without it is more likely to be flagged as spam.">Missing — add a ${header} header</span>`;
+  const envelope = [
+    ['MAIL FROM', e.mail_from || muted('<> (null sender)')],
+    ['RCPT TO', e.rcpt_to.length ? e.rcpt_to.join(', ') : muted('none')],
   ];
   if (e.source === 'smtp') {
-    rows.push(['HELO / EHLO', e.helo || html`<span class="muted">—</span>`]);
-    rows.push(['Client', e.remote_addr || html`<span class="muted">—</span>`]);
-    rows.push(['TLS', yes(e.tls, e.tls ? 'STARTTLS' : 'Plaintext')]);
-    rows.push(['Authenticated as', e.auth_user || html`<span class="muted">not authenticated</span>`]);
+    envelope.push(['HELO / EHLO', e.helo || muted('—')]);
+    envelope.push(['Client', e.remote_addr || muted('—')]);
+    envelope.push(['Encryption', e.tls ? html`<span class="ok">STARTTLS</span>` : muted('None')]);
+    envelope.push(['Authenticated as', e.auth_user || muted('Not authenticated')]);
   }
-  const missing = (header) => html`<span class="warn" title="Most providers add or require this header; messages without it are more likely to be flagged as spam.">${icon('shield')} No ${header} header</span>`;
-  rows.push(['Message-ID', d.message_id || missing('Message-ID')]);
-  rows.push(['Date header', d.date ? fullDate(d.date) : missing('Date')]);
-  rows.push(['Size', `${formatSize(d.size)} (${d.size.toLocaleString()} bytes)`]);
-  rows.push(['Mailroom ID', d.id]);
+  const message = [
+    ['Received', fullDate(d.received_at)],
+    ['Received via', e.source === 'api' ? 'HTTP API' : 'SMTP'],
+    ['Message-ID', d.message_id || missing('Message-ID')],
+    ['Date header', d.date ? fullDate(d.date) : missing('Date')],
+    ['Size', `${formatSize(d.size)} (${d.size.toLocaleString()} bytes)`],
+    ['Mailroom ID', d.id],
+  ];
+  const table = (rows) => html`<table class="table"><tbody>${rows.map(([k, v]) => html`<tr><th>${k}</th><td>${v}</td></tr>`)}</tbody></table>`;
   body.innerHTML = toHtml(html`
-    <div class="tab-pad">
-      <h3 class="section-title">SMTP envelope</h3>
-      <table class="kv"><tbody>${rows.map(([k, v]) => html`<tr><th>${k}</th><td>${v}</td></tr>`)}</tbody></table>
+    <div class="pad">
+      <section class="section"><h3 class="section-title">SMTP envelope</h3>${table(envelope)}</section>
+      <section class="section"><h3 class="section-title">Message</h3>${table(message)}</section>
     </div>`);
 }
 
@@ -901,67 +971,58 @@ function renderDelivery(body, d) {
 // Onboarding (empty mailbox)
 // ---------------------------------------------------------------------------
 
-function connectionDetails() {
-  const smtp = state.info?.smtp_addr || '127.0.0.1:1025';
-  const port = smtp.slice(smtp.lastIndexOf(':') + 1);
-  let host = smtp.slice(0, smtp.lastIndexOf(':')).replace(/^\[|\]$/g, '');
-  if (host === '0.0.0.0' || host === '::' || host === '127.0.0.1' || host === '::1') host = 'localhost';
-  const web = document.baseURI;
-  return { host, port, web };
-}
-
 function snippets() {
-  const { host, port, web } = connectionDetails();
+  const { host, port } = smtpEndpoint();
+  const web = document.baseURI;
   const auth = state.info?.smtp_auth_required;
   return [
-    { id: 'node', label: 'Node.js', code: `import nodemailer from "nodemailer";\n\nconst transport = nodemailer.createTransport({\n  host: "${host}",\n  port: ${port},\n  secure: false,${auth ? '\n  auth: { user: "USER", pass: "PASSWORD" },' : ''}\n});\n\nawait transport.sendMail({\n  from: "app@example.com",\n  to: "you@example.com",\n  subject: "Hello from Mailroom",\n  text: "It works!",\n});` },
-    { id: 'laravel', label: 'Laravel', code: `# .env\nMAIL_MAILER=smtp\nMAIL_HOST=${host}\nMAIL_PORT=${port}\nMAIL_USERNAME=${auth ? 'USER' : 'null'}\nMAIL_PASSWORD=${auth ? 'PASSWORD' : 'null'}\nMAIL_ENCRYPTION=null` },
-    { id: 'django', label: 'Django', code: `# settings.py\nEMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"\nEMAIL_HOST = "${host}"\nEMAIL_PORT = ${port}\nEMAIL_USE_TLS = False${auth ? '\nEMAIL_HOST_USER = "USER"\nEMAIL_HOST_PASSWORD = "PASSWORD"' : ''}` },
-    { id: 'rails', label: 'Rails', code: `# config/environments/development.rb\nconfig.action_mailer.delivery_method = :smtp\nconfig.action_mailer.smtp_settings = {\n  address: "${host}",\n  port: ${port},\n}` },
-    { id: 'python', label: 'Python', code: `import smtplib\nfrom email.message import EmailMessage\n\nmsg = EmailMessage()\nmsg["From"] = "app@example.com"\nmsg["To"] = "you@example.com"\nmsg["Subject"] = "Hello from Mailroom"\nmsg.set_content("It works!")\n\nwith smtplib.SMTP("${host}", ${port}) as smtp:\n    smtp.send_message(msg)` },
-    { id: 'php', label: 'PHP mail()', code: `; php.ini — capture mail() through Mailroom's sendmail mode\nsendmail_path = "/usr/local/bin/mailroom sendmail -t -S ${host}:${port}"` },
-    { id: 'curl', label: 'HTTP API', code: `curl -X POST ${web}api/v1/send \\\n  -H "Content-Type: application/json" \\\n  -d '{"from":"app@example.com","to":["you@example.com"],"subject":"Hello","text":"It works!"}'\n\n# In end-to-end tests: wait for the email, then read its link\ncurl "${web}api/v1/messages/wait?query=to:you@example.com&timeout=10"` },
+    { id: 'node', label: 'Node.js', code: `import nodemailer from "nodemailer";\n\nconst transport = nodemailer.createTransport({\n  host: "${host}",\n  port: ${port},\n  secure: false,${auth ? '\n  auth: { user: "USER", pass: "PASSWORD" },' : ''}\n});` },
+    { id: 'laravel', label: 'Laravel', code: `MAIL_MAILER=smtp\nMAIL_HOST=${host}\nMAIL_PORT=${port}\nMAIL_USERNAME=${auth ? 'USER' : 'null'}\nMAIL_PASSWORD=${auth ? 'PASSWORD' : 'null'}\nMAIL_ENCRYPTION=null` },
+    { id: 'django', label: 'Django', code: `EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"\nEMAIL_HOST = "${host}"\nEMAIL_PORT = ${port}\nEMAIL_USE_TLS = False${auth ? '\nEMAIL_HOST_USER = "USER"\nEMAIL_HOST_PASSWORD = "PASSWORD"' : ''}` },
+    { id: 'rails', label: 'Rails', code: `config.action_mailer.delivery_method = :smtp\nconfig.action_mailer.smtp_settings = {\n  address: "${host}",\n  port: ${port},\n}` },
+    { id: 'python', label: 'Python', code: `import smtplib\nfrom email.message import EmailMessage\n\nmsg = EmailMessage()\nmsg["From"] = "app@example.com"\nmsg["To"] = "you@example.com"\nmsg["Subject"] = "Hello"\nmsg.set_content("It works.")\n\nwith smtplib.SMTP("${host}", ${port}) as smtp:\n    smtp.send_message(msg)` },
+    { id: 'php', label: 'PHP', code: `; php.ini\nsendmail_path = "/usr/local/bin/mailroom sendmail -t -S ${host}:${port}"` },
+    { id: 'curl', label: 'HTTP API', code: `# Send a message\ncurl -X POST ${web}api/v1/send \\\n  -H "Content-Type: application/json" \\\n  -d '{"from":"app@example.com","to":["you@example.com"],"subject":"Hello","text":"It works."}'\n\n# In tests: wait for a message and read its links and codes\ncurl "${web}api/v1/messages/wait?query=to:you@example.com&timeout=10"` },
   ];
 }
 
-function storageHint() {
+function storageDescription() {
   const info = state.info;
-  if (!info) return '';
-  const where = info.database ? `Messages are saved to ${info.database}` : 'Messages are kept in memory until Mailroom stops';
-  return info.max_messages ? `${where}; the newest ${info.max_messages.toLocaleString()} are kept.` : `${where}.`;
+  if (!info) return '—';
+  const where = info.database ? info.database : 'In memory';
+  return info.max_messages ? `${where} · newest ${info.max_messages.toLocaleString()} kept` : `${where} · unlimited`;
 }
 
 function renderOnboarding() {
-  const { host, port } = connectionDetails();
+  const { host, port } = smtpEndpoint();
   const list = snippets();
   const current = list.find((s) => s.id === state.snippet) || list[0];
+  const info = state.info;
+  const api = `${document.baseURI}api/v1`;
+  const encryption = info?.smtp_tls ? (info.smtp_require_tls ? 'STARTTLS (required)' : 'STARTTLS (optional)') : 'None';
   detailEl.innerHTML = toHtml(html`
     <div class="onboard">
       <div class="onboard-inner">
-        <div class="onboard-hero">
-          <div class="big-icon">${icon('inbox')}</div>
-          <div>
-            <h2>Your inbox is ready</h2>
-            <p>Point your app's SMTP settings at Mailroom. Every email it sends is caught here instead of reaching real people.</p>
-          </div>
+        <div class="eyebrow"><span class="status-dot"></span>Ready to receive</div>
+        <h1>Connect your app</h1>
+        <p class="lead">Point your application's SMTP settings at Mailroom. Every message it sends is captured here and never reaches a real inbox.</p>
+        <dl class="facts">
+          <div class="fact"><dt>SMTP server</dt><dd><code>${host}:${port}</code></dd><button class="link-copy" data-copy="${host}:${port}">Copy</button></div>
+          <div class="fact"><dt>Authentication</dt><dd>${info?.smtp_auth_required ? 'Required' : 'Not required — any credentials are accepted'}</dd><span></span></div>
+          <div class="fact"><dt>Encryption</dt><dd>${encryption}</dd><span></span></div>
+          <div class="fact"><dt>HTTP API</dt><dd><code>${api}</code></dd><button class="link-copy" data-copy="${api}">Copy</button></div>
+          <div class="fact"><dt>Storage</dt><dd>${storageDescription()}</dd><span></span></div>
+        </dl>
+        <div class="snippet-tabs" role="tablist">
+          ${list.map((s) => html`<button class="tab ${s.id === current.id ? 'active' : ''}" data-snippet="${s.id}">${s.label}</button>`)}
         </div>
-        <div class="onboard-cards">
-          <div class="onboard-card"><div class="label">SMTP host</div><div class="value">${host}</div></div>
-          <div class="onboard-card"><div class="label">SMTP port</div><div class="value">${port}</div></div>
-          <div class="onboard-card"><div class="label">Authentication</div><div class="value">${state.info?.smtp_auth_required ? 'Required' : 'None (any accepted)'}</div></div>
-        </div>
-        <div class="snippets">
-          <div class="snippet-tabs" role="tablist">
-            ${list.map((s) => html`<button class="tab ${s.id === current.id ? 'active' : ''}" data-snippet="${s.id}">${s.label}</button>`)}
-          </div>
-          <div class="snippet-body">
-            <pre><code>${current.code}</code></pre>
-            <button class="icon-btn copy-btn" data-copy="${current.code}" title="Copy">${icon('copy')}</button>
-          </div>
+        <div class="snippet">
+          <pre><code>${current.code}</code></pre>
+          <button class="icon-btn copy" data-copy="${current.code}" title="Copy">${icon('copy')}</button>
         </div>
         <div class="onboard-actions">
-          <button class="btn primary" data-action="send-test">${icon('send')} Send a test email</button>
-          <span class="hint">${storageHint()}</span>
+          <button class="btn primary" data-action="send-test">Send test message</button>
+          <a href="${DOCS_URL}" target="_blank" rel="noopener">Testing with the API →</a>
         </div>
       </div>
     </div>`);
@@ -969,22 +1030,19 @@ function renderOnboarding() {
 
 const TEST_EMAIL_HTML = `<!doctype html>
 <html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
-<body style="margin:0;background:#f4f4f7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1f1f29">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:32px 12px">
+<body style="margin:0;padding:0;background:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#18181b">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:40px 16px">
     <tr><td align="center">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)">
-        <tr><td style="background:linear-gradient(135deg,#7c7cf0,#4b4bc8);padding:28px 32px;color:#fff">
-          <div style="font-size:13px;opacity:.85;letter-spacing:.04em;text-transform:uppercase">Mailroom</div>
-          <div style="font-size:24px;font-weight:700;margin-top:6px">It works! 🎉</div>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px">
+        <tr><td style="padding:0 4px 20px;font-size:15px;font-weight:600;letter-spacing:-0.01em">Mailroom</td></tr>
+        <tr><td style="background:#ffffff;border:1px solid #e4e4e7;border-radius:10px;padding:36px 36px 32px">
+          <h1 style="margin:0 0 12px;font-size:22px;line-height:1.3;font-weight:600;letter-spacing:-0.02em">Verify your email address</h1>
+          <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#52525b">This is a test message captured by Mailroom. Use the code below, or the button, to finish signing up.</p>
+          <div style="margin:0 0 24px;padding:16px 0;border-radius:8px;background:#f4f4f5;text-align:center;font:600 26px ui-monospace,Menlo,monospace;letter-spacing:8px">482913</div>
+          <a href="https://example.com/verify?token=mailroom-demo" style="display:inline-block;padding:11px 20px;border-radius:7px;background:#18181b;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none">Verify email address</a>
+          <p style="margin:28px 0 0;padding-top:20px;border-top:1px solid #e4e4e7;font-size:13px;line-height:1.6;color:#71717a">The code expires in 10 minutes. If you did not request this, you can ignore this message.</p>
         </td></tr>
-        <tr><td style="padding:28px 32px;font-size:15px;line-height:1.6">
-          <p style="margin:0 0 16px">This test message was caught by Mailroom. Nothing was delivered to a real inbox.</p>
-          <p style="margin:0 0 8px">Mailroom spots one-time codes automatically. Your verification code is:</p>
-          <div style="font:700 28px ui-monospace,Menlo,monospace;letter-spacing:6px;background:#f1f1fb;border-radius:10px;padding:14px 0;text-align:center;color:#4040b0;margin:0 0 20px">482 913</div>
-          <p style="margin:0 0 22px">Links are collected too, so tests can follow them:</p>
-          <a href="https://example.com/verify?token=mailroom-demo" style="display:inline-block;background:#5b5bd6;color:#fff;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:9px">Verify email address</a>
-          <p style="margin:24px 0 0;font-size:13px;color:#6b6b78">Try the device toggles above to preview this email at tablet and mobile widths.</p>
-        </td></tr>
+        <tr><td style="padding:20px 4px 0;font-size:12px;line-height:1.6;color:#a1a1aa">Sent by Mailroom · Nothing was delivered to a real inbox.</td></tr>
       </table>
     </td></tr>
   </table>
@@ -994,12 +1052,12 @@ async function sendTestEmail() {
   try {
     const summary = await request('POST', 'send', {
       from: 'Mailroom <hello@mailroom.test>',
-      to: ['You <you@example.com>'],
-      subject: 'Welcome to Mailroom 👋',
-      text: 'This test message was caught by Mailroom.\n\nYour verification code is: 482 913\n\nVerify: https://example.com/verify?token=mailroom-demo\n',
+      to: ['Alex Morgan <alex@example.com>'],
+      subject: 'Verify your email address',
+      text: 'Verify your email address\n\nThis is a test message captured by Mailroom.\n\nYour verification code is 482913.\n\nOr open: https://example.com/verify?token=mailroom-demo\n\nThe code expires in 10 minutes.\n',
       html: TEST_EMAIL_HTML,
       headers: { 'X-Mailroom-Test': 'true' },
-      attachments: [{ filename: 'welcome.txt', content_type: 'text/plain', content: btoa('Thanks for trying Mailroom!\n') }],
+      attachments: [{ filename: 'getting-started.txt', content_type: 'text/plain', content: btoa('Thanks for trying Mailroom.\n') }],
     });
     openMessage(summary.id);
   } catch (error) {
@@ -1012,24 +1070,21 @@ async function sendTestEmail() {
 // ---------------------------------------------------------------------------
 
 const OPERATORS = [
-  ['from:', 'sender address or name'],
-  ['to:', 'any recipient, incl. Bcc'],
-  ['subject:', 'words in the subject'],
-  ['is:unread', 'unread messages'],
-  ['is:read', 'read messages'],
-  ['has:attachment', 'with attachments'],
-  ['after:2026-01-31', 'received on or after'],
-  ['before:2026-01-31', 'received before'],
-  ['"exact phrase"', 'match a phrase'],
-  ['-word', 'exclude a term'],
+  ['from:', 'Sender'],
+  ['to:', 'Any recipient, including Bcc'],
+  ['subject:', 'Subject'],
+  ['is:unread', 'Unread messages'],
+  ['has:attachment', 'Has attachments'],
+  ['after:2026-01-31', 'Received on or after'],
+  ['before:2026-01-31', 'Received before'],
+  ['"exact phrase"', 'Exact phrase'],
+  ['-term', 'Exclude a term'],
 ];
 
 function renderSearchHelp() {
   $('#search-help').innerHTML = toHtml(html`
-    <h4>Search operators</h4>
-    <div class="search-help-grid">
-      ${OPERATORS.map(([op, text]) => html`<button class="search-op" type="button" data-op="${op}"><code>${op}</code><span>${text}</span></button>`)}
-    </div>`);
+    <h4>Search filters</h4>
+    ${OPERATORS.map(([op, text]) => html`<button class="search-op" type="button" data-op="${op}"><code>${op}</code><span>${text}</span></button>`)}`);
 }
 
 const runSearch = debounce(() => {
@@ -1037,13 +1092,11 @@ const runSearch = debounce(() => {
   if (query === state.query) return;
   state.query = query;
   loadMessages();
+  renderRecipients();
 }, 180);
 
 function setSearch(value) {
-  searchInput.value = value;
-  $('#search').classList.toggle('has-value', Boolean(value));
-  state.query = value.trim();
-  loadMessages();
+  setView(value.trim());
 }
 
 // ---------------------------------------------------------------------------
@@ -1057,14 +1110,14 @@ function applyTheme() {
   else document.documentElement.dataset.theme = state.theme;
   const button = $('#theme-btn');
   button.innerHTML = toHtml(icon(state.theme === 'dark' ? 'moon' : state.theme === 'light' ? 'sun' : 'auto'));
-  button.title = `Theme: ${state.theme} (click to change)`;
+  button.title = `Appearance: ${state.theme[0].toUpperCase()}${state.theme.slice(1)}`;
 }
 
 function renderNotifyButton() {
   const button = $('#notify-btn');
   button.innerHTML = toHtml(icon(state.notify ? 'bell' : 'bellOff'));
   button.classList.toggle('active', state.notify);
-  button.title = state.notify ? 'Desktop notifications on' : 'Desktop notifications off';
+  button.title = state.notify ? 'Desktop notifications: on' : 'Desktop notifications: off';
 }
 
 async function toggleNotifications() {
@@ -1081,19 +1134,19 @@ async function toggleNotifications() {
   }
   prefs.set('notify', state.notify);
   renderNotifyButton();
-  if (state.notify) toast('You will be notified about new mail while this tab is in the background', 'success');
+  if (state.notify) toast('Notifications on for new mail while this tab is in the background', 'success');
 }
 
 function showHelp() {
   const keys = [
-    ['Next / previous message', ['j', 'k']],
+    ['Next / previous message', ['J', 'K']],
     ['Search', ['/']],
-    ['Clear search / close', ['Esc']],
-    ['Delete message', ['Del']],
-    ['Toggle read / unread', ['u']],
+    ['Clear search or close', ['Esc']],
+    ['Delete', ['Del']],
+    ['Mark read / unread', ['U']],
     ['Switch tab', ['1', '–', '7']],
-    ['Select message', ['x']],
-    ['Refresh', ['r']],
+    ['Select message', ['X']],
+    ['Refresh', ['R']],
     ['Show shortcuts', ['?']],
   ];
   const modal = $('#modal');
@@ -1101,9 +1154,9 @@ function showHelp() {
     <form method="dialog">
       <div class="modal-body">
         <h3>Keyboard shortcuts</h3>
-        <div class="shortcuts">${keys.map(([label, combo]) => html`<span>${label}</span><span>${combo.map((k) => (k === '–' ? html`<span>–</span>` : html`<kbd>${k}</kbd>`))}</span>`)}</div>
+        <div class="shortcuts">${keys.map(([label, combo]) => html`<span>${label}</span><span>${combo.map((k) => (k === '–' ? '–' : html`<kbd>${k}</kbd>`))}</span>`)}</div>
       </div>
-      <div class="modal-actions"><button class="btn" value="close" autofocus>Close</button></div>
+      <div class="modal-actions"><button class="btn" value="close" autofocus>Done</button></div>
     </form>`);
   modal.showModal();
 }
@@ -1129,13 +1182,13 @@ function toggleSelect(id, checked) {
 }
 
 function bindEvents() {
-  document.addEventListener('click', async (event) => {
+  document.addEventListener('click', (event) => {
     const target = event.target;
 
     const copyButton = target.closest('[data-copy]');
     if (copyButton) {
       event.preventDefault();
-      copy(copyButton.dataset.copy, copyButton.classList.contains('code-chip') ? `Copied code ${copyButton.dataset.copy}` : 'Copied to clipboard');
+      copy(copyButton.dataset.copy);
       return;
     }
 
@@ -1163,6 +1216,15 @@ function bindEvents() {
       return;
     }
 
+    const view = target.closest('[data-view]');
+    if (view) return setView(VIEWS.find((v) => v.id === view.dataset.view).query);
+
+    const recipient = target.closest('[data-recipient]');
+    if (recipient) {
+      const query = `to:${recipient.dataset.recipient}`;
+      return setView(state.query === query ? '' : query);
+    }
+
     const tab = target.closest('[data-tab]');
     if (tab) return selectTab(tab.dataset.tab);
 
@@ -1186,8 +1248,7 @@ function bindEvents() {
     if (op) {
       event.preventDefault();
       const value = searchInput.value.trim();
-      const insert = op.dataset.op;
-      searchInput.value = value ? `${value} ${insert}` : insert;
+      searchInput.value = value ? `${value} ${op.dataset.op}` : op.dataset.op;
       searchInput.focus();
       $('#search').classList.add('has-value');
       runSearch();
@@ -1197,11 +1258,15 @@ function bindEvents() {
     const action = target.closest('[data-action]')?.dataset.action;
     switch (action) {
       case 'back': return closeMessage();
+      case 'prev': return moveSelection(-1);
+      case 'next': return moveSelection(1);
+      case 'open-nav': return appEl.classList.add('nav-open');
+      case 'close-nav': return appEl.classList.remove('nav-open');
       case 'toggle-read': return state.detail && setRead([state.detail.id], !state.detail.read);
       case 'delete': return state.detail && deleteMessages([state.detail.id]);
       case 'bulk-delete': return bulkDelete();
       case 'bulk-read': return bulkMarkRead();
-      case 'refresh': return loadMessages();
+      case 'refresh': loadMessages(); return loadRecipients();
       case 'clear-search': return setSearch('');
       case 'send-test': return sendTestEmail();
       case 'copy-source': return state.source && copy(state.source.text, 'Source copied');
@@ -1253,8 +1318,9 @@ function bindEvents() {
     if (key === '?') { showHelp(); return; }
     if (key === 'j' || key === 'ArrowDown') { event.preventDefault(); moveSelection(1); return; }
     if (key === 'k' || key === 'ArrowUp') { event.preventDefault(); moveSelection(-1); return; }
-    if (key === 'r') { loadMessages(); return; }
+    if (key === 'r') { loadMessages(); loadRecipients(); return; }
     if (key === 'Escape') {
+      if (appEl.classList.contains('nav-open')) { appEl.classList.remove('nav-open'); return; }
       if (state.selection.size) { state.selection.clear(); renderList(); return; }
       if (state.selectedId) closeMessage();
       else if (state.query) setSearch('');
@@ -1295,8 +1361,9 @@ function bindEvents() {
     resizer.setPointerCapture(event.pointerId);
     const frames = document.querySelectorAll('iframe');
     frames.forEach((f) => { f.style.pointerEvents = 'none'; });
+    const offset = $('.list-pane').getBoundingClientRect().left;
     const move = (e) => {
-      const width = Math.min(Math.max(e.clientX, 280), Math.min(720, window.innerWidth - 360));
+      const width = Math.min(Math.max(e.clientX - offset, 300), Math.min(640, window.innerWidth - offset - 380));
       document.documentElement.style.setProperty('--list-width', `${width}px`);
     };
     const up = () => {
@@ -1320,17 +1387,20 @@ async function boot() {
   applyTheme();
   renderNotifyButton();
   $('#help-btn').innerHTML = toHtml(icon('keyboard'));
+  $('.menu-btn').innerHTML = toHtml(icon('menu'));
+  $('.nav-close').innerHTML = toHtml(icon('x'));
   renderSearchHelp();
+  renderNav();
+  renderStatus();
   renderList();
   bindEvents();
   connectEvents();
   setInterval(updateTimes, 30_000);
 
-  request('GET', 'info').then((info) => {
-    state.info = info;
+  loadStats().then(() => {
     if (state.loaded && !state.total && !state.selectedId) renderOnboarding();
-  }).catch(() => {});
-
+  });
+  loadRecipients();
   await loadMessages();
   const id = location.hash.slice(1);
   if (id) openMessage(id, { updateHash: false });

@@ -78,7 +78,17 @@ impl Selection {
 pub struct Stats {
     pub total: u64,
     pub unread: u64,
+    /// Messages with at least one attachment.
+    pub with_attachments: u64,
     pub size: u64,
+}
+
+/// A recipient address with its message counts.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+pub struct Recipient {
+    pub address: String,
+    pub total: u64,
+    pub unread: u64,
 }
 
 pub struct NewMessage<'a> {
@@ -257,16 +267,48 @@ pub fn prune(conn: &Connection, keep: usize) -> rusqlite::Result<Vec<String>> {
 
 pub fn stats(conn: &Connection) -> rusqlite::Result<Stats> {
     conn.query_row(
-        "SELECT COUNT(*), COALESCE(SUM(read = 0), 0), COALESCE(SUM(size), 0) FROM messages",
+        "SELECT COUNT(*), COALESCE(SUM(read = 0), 0), COALESCE(SUM(attachment_count > 0), 0),
+                COALESCE(SUM(size), 0)
+         FROM messages",
         [],
         |row| {
             Ok(Stats {
                 total: row.get::<_, i64>(0)? as u64,
                 unread: row.get::<_, i64>(1)? as u64,
-                size: row.get::<_, i64>(2)? as u64,
+                with_attachments: row.get::<_, i64>(2)? as u64,
+                size: row.get::<_, i64>(3)? as u64,
             })
         },
     )
+}
+
+/// Every address that received mail (To, Cc or Bcc, including envelope-only
+/// recipients), most recently active first.
+pub fn recipients(conn: &Connection, limit: usize) -> rusqlite::Result<Vec<Recipient>> {
+    let mut stmt = conn.prepare_cached(
+        "SELECT address, COUNT(*), SUM(read = 0) FROM (
+             SELECT m.seq, m.read, lower(json_extract(r.value, '$.address')) AS address
+               FROM messages m, json_each(m.to_json) r
+             UNION
+             SELECT m.seq, m.read, lower(json_extract(r.value, '$.address'))
+               FROM messages m, json_each(m.cc_json) r
+             UNION
+             SELECT m.seq, m.read, lower(json_extract(r.value, '$.address'))
+               FROM messages m, json_each(m.bcc_json) r
+         )
+         WHERE address IS NOT NULL
+         GROUP BY address
+         ORDER BY MAX(seq) DESC
+         LIMIT ?1",
+    )?;
+    stmt.query_map([limit as i64], |row| {
+        Ok(Recipient {
+            address: row.get(0)?,
+            total: row.get::<_, i64>(1)? as u64,
+            unread: row.get::<_, i64>(2)? as u64,
+        })
+    })?
+    .collect()
 }
 
 fn row_to_summary(row: &Row<'_>) -> rusqlite::Result<MessageSummary> {

@@ -327,6 +327,20 @@ pub async fn codes(
     ))
 }
 
+#[derive(Debug, Deserialize)]
+pub struct RecipientParams {
+    limit: Option<usize>,
+}
+
+/// `GET /recipients` — addresses that received mail, most recent first.
+pub async fn recipients(
+    State(state): State<ApiState>,
+    Query(params): Query<RecipientParams>,
+) -> ApiResult<Json<Vec<crate::storage::Recipient>>> {
+    let limit = params.limit.unwrap_or(100).clamp(1, MAX_LIMIT);
+    Ok(Json(state.app.recipients(limit).await?))
+}
+
 /// `POST /send` — compose a message from JSON and store it as if it had
 /// arrived over SMTP.
 pub async fn send(

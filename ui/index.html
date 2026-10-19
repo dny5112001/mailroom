@@ -17,33 +17,50 @@
 </head>
 <body>
   <div class="app" id="app">
-    <header class="topbar">
-      <a class="brand" href="./" aria-label="Mailroom home">
-        <img src="assets/favicon.svg?v={{VERSION}}" alt="" width="26" height="26">
-        <span>Mailroom</span>
-      </a>
-      <div class="search" id="search">
-        <svg class="icon search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="search-input" type="search" placeholder="Search mail" autocomplete="off" spellcheck="false" aria-label="Search messages">
-        <kbd class="search-kbd">/</kbd>
-        <div class="search-help" id="search-help" hidden></div>
+    <aside class="sidebar" id="sidebar" aria-label="Mailboxes">
+      <div class="sidebar-head">
+        <a class="brand" href="./" aria-label="Mailroom">
+          <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true">
+            <rect width="24" height="24" rx="6"/>
+            <path d="M6 8.6c0-.5.4-.9.9-.9h10.2c.5 0 .9.4.9.9v6.8c0 .5-.4.9-.9.9H6.9a.9.9 0 0 1-.9-.9z"/>
+            <path d="m6.6 8.5 5.4 4.1 5.4-4.1"/>
+          </svg>
+          <span>Mailroom</span>
+        </a>
+        <button class="icon-btn nav-close" type="button" data-action="close-nav" aria-label="Close menu"></button>
       </div>
-      <div class="topbar-actions">
-        <span class="live" id="live" title="Connecting…"><span class="live-dot"></span><span class="live-label">Connecting</span></span>
-        <button class="icon-btn" id="notify-btn" type="button" title="Desktop notifications"></button>
-        <button class="icon-btn" id="theme-btn" type="button" title="Theme"></button>
-        <button class="icon-btn" id="help-btn" type="button" title="Keyboard shortcuts (?)"></button>
+      <nav class="nav" id="nav" aria-label="Views"></nav>
+      <div class="nav-section">
+        <div class="nav-title">Recipients</div>
+        <div class="nav-list" id="recipients"></div>
       </div>
-    </header>
+      <div class="sidebar-foot">
+        <div class="status" id="status"></div>
+        <div class="foot-actions">
+          <button class="icon-btn" id="notify-btn" type="button"></button>
+          <button class="icon-btn" id="theme-btn" type="button"></button>
+          <button class="icon-btn" id="help-btn" type="button" title="Keyboard shortcuts (?)"></button>
+          <span class="version">v{{VERSION}}</span>
+        </div>
+      </div>
+    </aside>
+    <div class="scrim" data-action="close-nav"></div>
 
-    <main class="panes" id="panes">
-      <section class="list-pane" aria-label="Messages">
-        <div class="list-toolbar" id="list-toolbar"></div>
-        <div class="list" id="list" role="listbox" aria-label="Message list" tabindex="-1"></div>
-      </section>
-      <div class="resizer" id="resizer" role="separator" aria-orientation="vertical" aria-label="Resize message list"></div>
-      <section class="detail-pane" id="detail" aria-label="Message"></section>
-    </main>
+    <section class="list-pane" aria-label="Messages">
+      <header class="list-head">
+        <button class="icon-btn menu-btn" type="button" data-action="open-nav" aria-label="Open menu"></button>
+        <div class="search" id="search">
+          <svg class="icon search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4-4"/></svg>
+          <input id="search-input" type="search" placeholder="Search" autocomplete="off" spellcheck="false" aria-label="Search messages">
+          <kbd class="search-kbd">/</kbd>
+          <div class="search-help" id="search-help" hidden></div>
+        </div>
+      </header>
+      <div class="list-toolbar" id="list-toolbar"></div>
+      <div class="list" id="list" role="listbox" aria-label="Message list" tabindex="-1"></div>
+    </section>
+    <div class="resizer" id="resizer" role="separator" aria-orientation="vertical" aria-label="Resize message list"></div>
+    <section class="detail-pane" id="detail" aria-label="Message"></section>
   </div>
 
   <div class="toasts" id="toasts" aria-live="polite"></div>

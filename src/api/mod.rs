@@ -66,6 +66,7 @@ pub fn router(app: Mailroom, info: ServerInfo, cors: &[String]) -> Router {
         .route("/messages/{id}/links", get(messages::links))
         .route("/messages/{id}/codes", get(messages::codes))
         .route("/send", post(messages::send))
+        .route("/recipients", get(messages::recipients))
         .route("/events", get(stream::events))
         .route("/info", get(server_info));
     if let Some(layer) = cors_layer(cors) {

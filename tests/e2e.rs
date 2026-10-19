@@ -181,6 +181,14 @@ async fn search_read_state_and_delete() {
     assert_eq!(bob["total"], 3);
     let reset = get_json(&api(&server, "messages?query=subject:%22reset password%22")).await;
     assert_eq!(reset["matched"], 1);
+    let recipients = get_json(&api(&server, "recipients")).await;
+    assert_eq!(
+        recipients,
+        json!([
+            { "address": "bob@example.com", "total": 2, "unread": 2 },
+            { "address": "carol@example.com", "total": 1, "unread": 1 },
+        ])
+    );
     let not_bob = get_json(&api(&server, "messages?query=-to:bob")).await;
     assert_eq!(not_bob["messages"][0]["subject"], "Welcome");
 
