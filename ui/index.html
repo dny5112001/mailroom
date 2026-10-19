@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <base href="{{WEBROOT}}">
+  <title>Mailroom</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v={{VERSION}}">
+  <link rel="stylesheet" href="assets/app.css?v={{VERSION}}">
+  <script>
+    try {
+      var theme = localStorage.getItem('mailroom.theme');
+      if (theme === '"light"' || theme === '"dark"') document.documentElement.dataset.theme = JSON.parse(theme);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Mailroom home">
+        <img src="assets/favicon.svg?v={{VERSION}}" alt="" width="26" height="26">
+        <span>Mailroom</span>
+      </a>
+      <div class="search" id="search">
+        <svg class="icon search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="search-input" type="search" placeholder="Search mail" autocomplete="off" spellcheck="false" aria-label="Search messages">
+        <kbd class="search-kbd">/</kbd>
+        <div class="search-help" id="search-help" hidden></div>
+      </div>
+      <div class="topbar-actions">
+        <span class="live" id="live" title="Connecting…"><span class="live-dot"></span><span class="live-label">Connecting</span></span>
+        <button class="icon-btn" id="notify-btn" type="button" title="Desktop notifications"></button>
+        <button class="icon-btn" id="theme-btn" type="button" title="Theme"></button>
+        <button class="icon-btn" id="help-btn" type="button" title="Keyboard shortcuts (?)"></button>
+      </div>
+    </header>
+
+    <main class="panes" id="panes">
+      <section class="list-pane" aria-label="Messages">
+        <div class="list-toolbar" id="list-toolbar"></div>
+        <div class="list" id="list" role="listbox" aria-label="Message list" tabindex="-1"></div>
+      </section>
+      <div class="resizer" id="resizer" role="separator" aria-orientation="vertical" aria-label="Resize message list"></div>
+      <section class="detail-pane" id="detail" aria-label="Message"></section>
+    </main>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <dialog class="modal" id="modal"></dialog>
+
+  <script type="module" src="assets/app.js?v={{VERSION}}"></script>
+</body>
+</html>
