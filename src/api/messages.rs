@@ -412,11 +412,11 @@ fn content_disposition(kind: &str, filename: &str) -> HeaderValue {
 fn open_links_in_new_tab(html: &str) -> String {
     const BASE: &str = r#"<base target="_blank">"#;
     let lower = html.to_ascii_lowercase();
-    if let Some(start) = lower.find("<head") {
-        if let Some(end) = lower[start..].find('>') {
-            let at = start + end + 1;
-            return format!("{}{BASE}{}", &html[..at], &html[at..]);
-        }
+    if let Some(start) = lower.find("<head")
+        && let Some(end) = lower[start..].find('>')
+    {
+        let at = start + end + 1;
+        return format!("{}{BASE}{}", &html[..at], &html[at..]);
     }
     format!("{BASE}{html}")
 }

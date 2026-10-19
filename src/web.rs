@@ -68,10 +68,10 @@ fn ui_dir() -> Option<PathBuf> {
 }
 
 async fn load(name: &str, embedded: &'static str) -> String {
-    if let Some(dir) = ui_dir() {
-        if let Ok(body) = tokio::fs::read_to_string(dir.join(name)).await {
-            return body;
-        }
+    if let Some(dir) = ui_dir()
+        && let Ok(body) = tokio::fs::read_to_string(dir.join(name)).await
+    {
+        return body;
     }
     embedded.to_string()
 }

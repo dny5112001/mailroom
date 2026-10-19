@@ -214,10 +214,10 @@ pub fn render(raw: &[u8], part_url: impl Fn(u32) -> String) -> Rendered {
     let attachments = classified.attachments.iter().map(|&id| info(id)).collect();
     let inline = classified.inline.iter().map(|&id| info(id)).collect();
 
-    if let Some(body) = &mut html {
-        if !classified.cids.is_empty() {
-            *body = rewrite_cids(body, &classified.cids, &part_url);
-        }
+    if let Some(body) = &mut html
+        && !classified.cids.is_empty()
+    {
+        *body = rewrite_cids(body, &classified.cids, &part_url);
     }
 
     let links = extract::links(text.as_deref(), html.as_deref());

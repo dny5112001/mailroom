@@ -90,20 +90,20 @@ fn run(options: Options) -> Result<()> {
     let parsed = MessageParser::default().parse(&original);
 
     let mut recipients = options.recipients.clone();
-    if options.read_headers {
-        if let Some(parsed) = &parsed {
-            for address in parsed
-                .all_to()
-                .chain(parsed.all_cc())
-                .chain(parsed.all_bcc())
-            {
-                recipients.extend(
-                    address
-                        .iter()
-                        .filter_map(|a| a.address())
-                        .map(str::to_string),
-                );
-            }
+    if options.read_headers
+        && let Some(parsed) = &parsed
+    {
+        for address in parsed
+            .all_to()
+            .chain(parsed.all_cc())
+            .chain(parsed.all_bcc())
+        {
+            recipients.extend(
+                address
+                    .iter()
+                    .filter_map(|a| a.address())
+                    .map(str::to_string),
+            );
         }
     }
     if recipients.is_empty() {

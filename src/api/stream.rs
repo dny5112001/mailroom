@@ -72,10 +72,10 @@ pub async fn wait(
     // not missed.
     let mut events = state.app.subscribe();
     loop {
-        if let Some(summary) = state.app.latest(query.clone()).await? {
-            if let Some(detail) = state.app.detail(&summary.id).await? {
-                return Ok(Json(detail));
-            }
+        if let Some(summary) = state.app.latest(query.clone()).await?
+            && let Some(detail) = state.app.detail(&summary.id).await?
+        {
+            return Ok(Json(detail));
         }
         loop {
             match tokio::time::timeout_at(deadline, events.recv()).await {
